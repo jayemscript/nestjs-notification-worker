@@ -18,42 +18,42 @@ export enum NotificationAction {
 @Schema({ timestamps: true })
 export class Notification {
   @Prop({ required: true })
-  appId: string;
+  appId!: string;
 
   @Prop({ required: true })
-  recipientId: string;
+  recipientId!: string;
 
   @Prop({ required: true })
-  title: string;
+  title!: string;
 
   @Prop({ required: true })
-  description: string;
+  description!: string;
 
   @Prop({ type: String, default: null })
-  url: string | null;
+  url!: string | null;
 
   @Prop({
     type: String,
     enum: NotificationStatus,
     default: NotificationStatus.NORMAL,
   })
-  notifStatus: NotificationStatus;
+  notifStatus!: NotificationStatus;
 
   @Prop({
     type: String,
     enum: NotificationAction,
     default: null,
   })
-  notifAction: NotificationAction | null;
+  notifAction!: NotificationAction | null;
 
   @Prop({ type: Object, default: {} })
-  meta: Record<string, unknown>;
+  meta!: Record<string, unknown>;
 
   @Prop({ type: Date, default: null })
-  snoozedUntil: Date | null;
+  snoozedUntil!: Date | null;
 
   @Prop({ type: Date, default: null })
-  readAt: Date | null;
+  readAt!: Date | null;
 }
 
 export const NotificationSchema = SchemaFactory.createForClass(Notification);

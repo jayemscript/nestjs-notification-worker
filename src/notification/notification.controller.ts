@@ -14,7 +14,7 @@ import {
   ActionDto,
   IgnoreDto,
   GetNotificationsDto,
-} from './dto/notification.dto.js';
+} from './dto';
 import { ApiKeyGuard } from '../common/guards/api-key.guard.js';
 
 @UseGuards(ApiKeyGuard)
