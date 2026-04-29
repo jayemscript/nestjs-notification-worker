@@ -3,7 +3,8 @@ export default () => ({
   nodeEnv: process.env.NODE_ENV ?? 'development',
 
   mongo: {
-    uri: process.env.MONGO_URI ?? 'mongodb://localhost:27017/notifications',
+    uri: process.env.MONGO_URI ?? 'mongodb://localhost:27017',
+    dbName: process.env.MONGO_DB_NAME ?? 'notifications',
   },
 
   redis: {
