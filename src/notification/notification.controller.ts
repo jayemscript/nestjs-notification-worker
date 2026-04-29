@@ -7,7 +7,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { NotificationService } from './notification.service.js';
+import { NotificationService } from './notification.service';
 import {
   CreateNotificationDto,
   SendToUsersDto,
@@ -15,7 +15,11 @@ import {
   IgnoreDto,
   GetNotificationsDto,
 } from './dto';
-import { ApiKeyGuard } from '../common/guards/api-key.guard.js';
+import { ApiKeyGuard } from '../common/guards/api-key.guard';
+import {
+  NotificationAction,
+  NotificationStatus,
+} from './schemas/notification.schema.js';
 
 @UseGuards(ApiKeyGuard)
 @Controller('notifications')
@@ -40,10 +44,19 @@ export class NotificationController {
   getForRecipient(
     @Param('recipientId') recipientId: string,
     @Query('appId') appId?: string,
+    @Query('notifStatus') notifStatus?: NotificationStatus,
+    @Query('notifAction') notifAction?: NotificationAction | 'none',
     @Query('limit') limit?: number,
     @Query('skip') skip?: number,
   ) {
-    const dto: GetNotificationsDto = { recipientId, appId, limit, skip };
+    const dto: GetNotificationsDto = {
+      recipientId,
+      appId,
+      notifStatus,
+      notifAction,
+      limit,
+      skip,
+    };
     return this.notifService.getForRecipient(dto);
   }
 

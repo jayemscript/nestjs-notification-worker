@@ -69,7 +69,18 @@ export class NotificationService {
 
   async getForRecipient(dto: GetNotificationsDto) {
     const query: Record<string, unknown> = { recipientId: dto.recipientId };
+
     if (dto.appId) query.appId = dto.appId;
+
+    // filter by notifStatus: Normal | Alert | Priority
+    if (dto.notifStatus) query.notifStatus = dto.notifStatus;
+
+    // filter by notifAction:
+    // 'none'   = only unactioned notifications (null)
+    // any enum = only notifications with that specific action
+    if (dto.notifAction) {
+      query.notifAction = dto.notifAction === 'none' ? null : dto.notifAction;
+    }
 
     return this.notificationModel
       .find(query)

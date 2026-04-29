@@ -74,9 +74,30 @@ GET /notifications/:recipientId?appId=my-app&limit=20&skip=0
 | Query param | Type | Required | Notes |
 |---|---|---|---|
 | appId | string | no | filter by app |
+| notifStatus | string | no | `Normal` `Alert` `Priority` |
+| notifAction | string | no | `Read` `Done` `Ignore` `none` — pass `none` to get only unactioned notifications |
 | limit | number | no | defaults to 20 |
 | skip | number | no | defaults to 0, use for pagination |
 
+Examples:
+
+# Active inbox — nothing actioned yet
+```
+GET /notifications/user-123?notifAction=none
+```
+# Only Priority notifications
+```
+GET /notifications/user-123?notifStatus=Priority
+```
+
+# Unread Priority notifications
+```
+GET /notifications/user-123?notifStatus=Priority&notifAction=none
+```
+# Filter by app and paginate
+```
+GET /notifications/user-123?appId=my-app&limit=10&skip=20
+```
 ---
 
 ### Get unread count
