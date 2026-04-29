@@ -1,0 +1,62 @@
+nestjs-notification-worker/
+│
+├── src/
+│   │
+│   ├── common/
+│   │   ├── decorators/
+│   │   │   └── app-id.decorator.ts          ← extract appId from request
+│   │   ├── guards/
+│   │   │   ├── api-key.guard.ts             ← validates X-API-KEY header
+│   │   │   └── jwt-ws.guard.ts              ← JWT guard for Socket.IO handshake
+│   │   └── filters/
+│   │       └── http-exception.filter.ts
+│   │
+│   ├── config/
+│   │   └── configuration.ts                 ← maps all .env variables
+│   │
+│   ├── notification/
+│   │   ├── schemas/
+│   │   │   └── notification.schema.ts       ← Mongoose document schema
+│   │   ├── dto/
+│   │   │   ├── create-notification.dto.ts
+│   │   │   ├── send-to-users.dto.ts
+│   │   │   └── action.dto.ts
+│   │   ├── notification.service.ts
+│   │   ├── notification.controller.ts       ← REST: actions, fetch, counts
+│   │   └── notification.module.ts
+│   │
+│   ├── webhook/
+│   │   ├── schemas/
+│   │   │   ├── webhook.schema.ts            ← registered webhook endpoints
+│   │   │   └── delivery-log.schema.ts       ← per-attempt delivery logs
+│   │   ├── dto/
+│   │   │   └── register-webhook.dto.ts
+│   │   ├── webhook.service.ts               ← sign, fire, log, retry
+│   │   ├── webhook.controller.ts            ← register/list/delete/logs
+│   │   └── webhook.module.ts
+│   │
+│   ├── queue/
+│   │   ├── processors/
+│   │   │   ├── notification.processor.ts    ← BullMQ worker: in-app jobs
+│   │   │   └── webhook.processor.ts         ← BullMQ worker: webhook jobs
+│   │   ├── producers/
+│   │   │   └── notification.producer.ts     ← enqueue jobs from other modules
+│   │   └── queue.module.ts
+│   │
+│   ├── gateway/
+│   │   ├── notification.gateway.ts          ← Socket.IO server
+│   │   └── gateway.module.ts
+│   │
+│   ├── cron/
+│   │   ├── notification.cron.ts             ← digest, cleanup, dead webhook check
+│   │   └── cron.module.ts
+│   │
+│   ├── app.module.ts
+│   └── main.ts
+│
+├── .env                                     ← real credentials (gitignored)
+├── .env.example                             ← template for others
+├── .gitignore
+├── docker-compose.yml                       ← MongoDB + Redis for local dev
+├── pnpm-lock.yaml
+└── package.json
