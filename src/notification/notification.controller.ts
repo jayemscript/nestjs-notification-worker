@@ -20,22 +20,32 @@ import {
   NotificationAction,
   NotificationStatus,
 } from './schemas/notification.schema';
+import { NotificationProducer } from 'src/queue/producers/notification.producer';
 
 @UseGuards(ApiKeyGuard)
 @Controller('notifications')
 export class NotificationController {
-  constructor(private readonly notifService: NotificationService) {}
+  constructor(
+    private readonly notifService: NotificationService,
+    private readonly notifProducer: NotificationProducer,
+  ) {}
 
   // ─── Send ──────────────────────────────────────────────────────────────────
 
   @Post('send')
-  send(@Body() dto: CreateNotificationDto) {
-    return this.notifService.create(dto);
+  async send(@Body() dto: CreateNotificationDto) {
+    await this.notifProducer.sendNotification(dto);
+    return { message: 'Notification queued' };
   }
 
   @Post('send/bulk')
-  sendBulk(@Body() dto: SendToUsersDto) {
-    return this.notifService.createForMany(dto);
+  async sendBulk(@Body() dto: SendToUsersDto) {
+    const jobs = dto.recipientIds.map((recipientId) => ({
+      ...dto,
+      recipientId,
+    })) as CreateNotificationDto[];
+    await this.notifProducer.sendBulkNotification(jobs);
+    return { message: `${jobs.length} notifications queued` };
   }
 
   // ─── Read ──────────────────────────────────────────────────────────────────

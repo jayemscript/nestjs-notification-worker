@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   Notification,
@@ -6,7 +6,8 @@ import {
 } from './schemas/notification.schema';
 import { NotificationService } from './notification.service';
 import { NotificationController } from './notification.controller';
-import { GatewayModule } from '../gateway/gateway.module';
+import { GatewayModule } from 'src/gateway/gateway.module';
+import { QueueModule } from 'src/queue/queue.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { GatewayModule } from '../gateway/gateway.module';
       { name: Notification.name, schema: NotificationSchema },
     ]),
     GatewayModule,
+    forwardRef(() => QueueModule),
   ],
   providers: [NotificationService],
   controllers: [NotificationController],

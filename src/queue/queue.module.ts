@@ -1,11 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NotificationProducer } from './producers/notification.producer';
 import { NotificationProcessor } from './processors/notification.processor';
 import { NotificationModule } from 'src/notification/notification.module';
 import { NOTIFICATION_QUEUE } from './queue.constants';
-
 
 @Module({
   imports: [
@@ -21,7 +20,7 @@ import { NOTIFICATION_QUEUE } from './queue.constants';
     BullModule.registerQueue({
       name: NOTIFICATION_QUEUE,
     }),
-    NotificationModule,
+    forwardRef(() => NotificationModule),
   ],
   providers: [NotificationProducer, NotificationProcessor],
   exports: [BullModule, NotificationProducer],
