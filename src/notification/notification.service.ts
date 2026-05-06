@@ -135,6 +135,13 @@ export class NotificationService {
     return notif.save();
   }
 
+  async resetSnooze(notifId: string) {
+    const notif = await this.findOneOrFail(notifId);
+    notif.notifAction = null;
+    notif.snoozedUntil = null;
+    return notif.save();
+  }
+
   async markAllAsRead(recipientId: string, appId?: string) {
     const query: Record<string, unknown> = {
       recipientId,
