@@ -37,4 +37,13 @@ export class NotificationCron {
       );
     }
   }
+
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async cleanupOldNotifications() {
+    this.logger.log('Running notification cleanup...');
+
+    const deleted = await this.notificationService.deleteOldNotifications(30);
+
+    this.logger.log(`Cleanup complete — deleted ${deleted} old notifications`);
+  }
 }
