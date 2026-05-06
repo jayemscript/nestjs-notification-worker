@@ -17,6 +17,7 @@ import {
   SendToUsersDto,
   GetNotificationsDto,
 } from './dto';
+import { NotificationGateway } from 'src/gateway/notification.gateway.js';
 
 @Injectable()
 export class NotificationService {
@@ -25,6 +26,7 @@ export class NotificationService {
   constructor(
     @InjectModel(Notification.name)
     private readonly notificationModel: Model<NotificationDocument>,
+    private readonly gateway: NotificationGateway,
   ) {}
 
   // ─── Core Create ───────────────────────────────────────────────────────────
@@ -41,6 +43,7 @@ export class NotificationService {
     });
 
     const saved = await notif.save();
+    this.gateway.emitToUser(dto.recipientId, saved);
     this.logger.log(
       `Notification created: ${saved._id} for ${dto.recipientId}`,
     );
@@ -59,6 +62,10 @@ export class NotificationService {
     }));
 
     const saved = await this.notificationModel.insertMany(docs);
+    for (const notif of saved) {
+      const doc = notif as NotificationDocument;
+      this.gateway.emitToUser(doc.recipientId, doc);
+    }
     this.logger.log(
       `Bulk notifications created: ${saved.length} for appId ${dto.appId}`,
     );
