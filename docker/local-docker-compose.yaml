@@ -19,6 +19,17 @@ services:
     volumes:
       - redis_local_data:/data
 
+   redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: notif_redis_ui
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '8081:8081'
+    depends_on:
+      - redis
+
 volumes:
   mongo_local_data:
   redis_local_data:
