@@ -3,10 +3,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Notification,
   NotificationSchema,
-} from './schemas/notification.schema.js';
-import { NotificationService } from './notification.service.js';
-import { NotificationController } from './notification.controller.js';
-import { GatewayModule } from '../gateway/gateway.module.js';
+} from './schemas/notification.schema';
+import { NotificationService } from './notification.service';
+import { NotificationController } from './notification.controller';
+import { GatewayModule } from '../gateway/gateway.module';
 
 @Module({
   imports: [

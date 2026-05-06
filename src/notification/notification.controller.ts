@@ -19,7 +19,7 @@ import { ApiKeyGuard } from '../common/guards/api-key.guard';
 import {
   NotificationAction,
   NotificationStatus,
-} from './schemas/notification.schema.js';
+} from './schemas/notification.schema';
 
 @UseGuards(ApiKeyGuard)
 @Controller('notifications')

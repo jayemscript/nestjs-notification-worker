@@ -17,7 +17,7 @@ import {
   SendToUsersDto,
   GetNotificationsDto,
 } from './dto';
-import { NotificationGateway } from 'src/gateway/notification.gateway.js';
+import { NotificationGateway } from 'src/gateway/notification.gateway';
 
 @Injectable()
 export class NotificationService {

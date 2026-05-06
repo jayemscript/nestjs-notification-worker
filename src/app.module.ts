@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import configuration from './config/configuration.js';
-import { NotificationModule } from './notification/notification.module.js';
-import { GatewayModule } from './gateway/gateway.module.js';
+import configuration from './config/configuration';
+import { NotificationModule } from './notification/notification.module';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [

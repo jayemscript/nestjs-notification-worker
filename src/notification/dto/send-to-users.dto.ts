@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import {
   NotificationStatus,
-} from '../schemas/notification.schema.js';
+} from '../schemas/notification.schema';
 
 export class SendToUsersDto {
   @IsArray()
