@@ -4,8 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NotificationProducer } from './producers/notification.producer';
 import { NotificationProcessor } from './processors/notification.processor';
 import { NotificationModule } from 'src/notification/notification.module';
+import { NOTIFICATION_QUEUE } from './queue.constants';
 
-export const NOTIFICATION_QUEUE = 'notification-queue';
 
 @Module({
   imports: [

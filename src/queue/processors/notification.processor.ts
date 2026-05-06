@@ -1,7 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { Logger } from '@nestjs/common';
-import { NOTIFICATION_QUEUE } from '../queue.module';
+import { NOTIFICATION_QUEUE } from '../queue.constants';
 import {
   SEND_NOTIFICATION_JOB,
   SEND_BULK_NOTIFICATION_JOB,

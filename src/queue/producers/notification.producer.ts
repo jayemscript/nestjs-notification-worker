@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { NOTIFICATION_QUEUE } from '../queue.module';
+import { NOTIFICATION_QUEUE } from '../queue.constants';
 import { CreateNotificationDto } from 'src/notification/dto';
 
 export const SEND_NOTIFICATION_JOB = 'send-notification';

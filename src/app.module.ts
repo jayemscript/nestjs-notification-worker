@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import configuration from './config/configuration';
 import { NotificationModule } from './notification/notification.module';
 import { GatewayModule } from './gateway/gateway.module';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { GatewayModule } from './gateway/gateway.module';
     }),
     GatewayModule,
     NotificationModule,
+    QueueModule,
   ],
 })
 export class AppModule {}
