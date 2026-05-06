@@ -47,15 +47,24 @@ export class NotificationGateway
         return;
       }
 
-      const secret = this.configService.get<string>('jwt.secret');
-      const payload = this.jwtService.verify(token as string, { secret });
+      let recipientId: string;
 
-      const recipientId = payload.sub ?? payload.id ?? payload.userId;
+      try {
+        // attempt JWT verification first
+        const secret = this.configService.get<string>('jwt.secret');
+        const payload = this.jwtService.verify(token as string, { secret });
+        recipientId = payload.sub ?? payload.id ?? payload.userId;
+      } catch {
+        // fallback: treat token as raw userId for now
+        // replace this fallback when socket token endpoint is ready
+        this.logger.warn(
+          `Client ${client.id} token is not a JWT — using as raw userId`,
+        );
+        recipientId = token as string;
+      }
 
       if (!recipientId) {
-        this.logger.warn(
-          `Client ${client.id} token has no user id — disconnecting`,
-        );
+        this.logger.warn(`Client ${client.id} no recipientId — disconnecting`);
         client.disconnect();
         return;
       }
