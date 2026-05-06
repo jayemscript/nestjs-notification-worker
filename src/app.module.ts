@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import configuration from './config/configuration.js';
 import { NotificationModule } from './notification/notification.module.js';
+import { GatewayModule } from './gateway/gateway.module.js';
 
 @Module({
   imports: [
@@ -10,7 +11,6 @@ import { NotificationModule } from './notification/notification.module.js';
       isGlobal: true,
       load: [configuration],
     }),
-
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
@@ -18,7 +18,7 @@ import { NotificationModule } from './notification/notification.module.js';
         dbName: config.get<string>('mongo.dbName'),
       }),
     }),
-
+    GatewayModule,
     NotificationModule,
   ],
 })
