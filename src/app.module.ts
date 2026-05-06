@@ -5,6 +5,7 @@ import configuration from './config/configuration';
 import { NotificationModule } from './notification/notification.module';
 import { GatewayModule } from './gateway/gateway.module';
 import { QueueModule } from './queue/queue.module';
+import { CronModule } from './cron/cron.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { QueueModule } from './queue/queue.module';
     GatewayModule,
     NotificationModule,
     QueueModule,
+    CronModule,
   ],
 })
 export class AppModule {}
