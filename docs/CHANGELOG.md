@@ -9,6 +9,17 @@ Versioning follows [Semantic Versioning](https://semver.org): MAJOR.MINOR.PATCH
 - PATCH = bug fixes, small updates
 
 ---
+## [0.2.0] - 2026-05-06
+
+### Added
+- Socket.IO gateway with JWT verification and userId fallback
+- BullMQ queue module with producer and processor
+- Redis integration for job queue
+- Cron module — snooze resolver (every minute)
+- Cron module — old notification cleanup (daily at midnight)
+- Next.js notification-socket-provider with real-time listener
+- resetSnooze method on NotificationService
+
 
 ## [0.1.0] - 2026-04-29
 

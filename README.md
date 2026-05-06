@@ -13,37 +13,52 @@ A self-hosted notification microservice built with NestJS. Supports real-time in
 ## Channels
 
 - In-app (Socket.IO)
-- Webhook (HTTP POST to any registered URL)
+- Webhook (HTTP POST to any registered URL) — coming soon
 
 ## Requirements
 
 - Node.js 18+
-- Docker (for local Redis + MongoDB)
+- pnpm
+- Docker (for local Redis)
+- MongoDB Atlas or local MongoDB instance
 
 ## Environment Variables
 
+See `.env.example` for the full list. Minimum required:
+
 ```env
-PORT=3006
-MONGO_URI=mongodb://localhost:27017/notifications
+PORT=4000
+MONGO_URI=mongodb://localhost:27017
+MONGO_DB_NAME=notifications
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your_jwt_secret
+API_KEYS=your_api_key
 ```
 
 ## Getting Started
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/nestjs-notification-worker.git
+git clone https://github.com/jayemscript/nestjs-notification-worker.git
 
 # Install dependencies
-npm install
+pnpm install
 
-# Start MongoDB and Redis
+# Copy environment file
+cp .env.example .env
+
+# Start Redis
 docker-compose up -d
 
 # Run the service
-npm run start:dev
+pnpm run start:dev
 ```
+
+## Docs
+
+- [API Documentation](./docs/API_DOCUMENTATION.md)
+- [Environment Variables](./docs/environment-variables.md)
+- [Changelog](./CHANGELOG.md)
 
 ## License
 
